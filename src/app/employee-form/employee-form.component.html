@@ -1,0 +1,66 @@
+<h2 class="mb-5">
+    @if (employee) {
+        Edit
+    } @else {
+        New
+    } Employee
+</h2>
+
+<div class="row row-cols-3 justify-content-center">
+    @if (form) {
+        <div>
+            @if (errors.length) {
+                <div class="alert alert-danger">
+                    <ul>
+                        @for (error of errors; track error) {
+                            <li>{{error}}</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <form [formGroup]="form" (ngSubmit)="save()">
+                <div class="mb-3">
+                    <label for="employeeName">Name</label>
+                    <input type="text" id="name" 
+                    placeholder="Name" 
+                    class="form-control" 
+                    formControlName="employeeName">
+                    
+                    @if (form.get('employeeName')?.hasError('required') && form.get('employeeName')?.touched) {
+                        <p class="invalid-feedback d-block">The name is required</p>
+                    }
+                </div>
+                <div class="mb-3">
+                    <label for="employeeContactNumber">Contact Number</label>
+                    <input type="text" id="employeeContactNumber" placeholder="Contact" class="form-control" formControlName="employeeContactNumber">
+                    @if (form.get('employeeContactNumber')?.hasError('required') && form.get('employeeContactNumber')?.touched) {
+                        <p class="invalid-feedback d-block">The Contact is required</p>
+                    }
+                </div>
+                <div class="mb-3">
+                    <label for="employeeAddress">Address</label>
+                    <input type="email" id="employeeAddress" placeholder="Address" class="form-control" formControlName="employeeAddress">
+                    @if (form.get('employeeAddress')?.hasError('required') && form.get('employeeAddress')?.touched) {
+                        <p class="invalid-feedback d-block">The Address is required</p>
+                    }
+                    @if (form.get('employeeAddress')?.hasError('email')) {
+                        <p class="invalid-feedback d-block">Invalid format</p>
+                    }
+                </div>
+            
+                <div class="text-end">
+                    <button type="button" class="btn btn-light ms-2" routerLink="/">
+                        Cancel
+                    </button>
+                    <button class="btn btn-primary ms-2">
+                        @if (employee) {
+                            Update
+                        } @else {
+                            Create
+                        } Employee
+                    </button>
+                </div>
+            </form>
+        </div>
+    }
+</div>

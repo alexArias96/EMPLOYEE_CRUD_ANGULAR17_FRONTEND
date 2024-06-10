@@ -1,0 +1,39 @@
+<h2 class="mb-5">Employees</h2>
+
+<div class="text-end">
+    <button class="btn btn-primary" routerLink="/new">
+        New Employee
+    </button>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>ADDRESS</th>
+        <th>CONTACT NUMBER</th>
+        <th>CREATION DATE</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @for(employee of employees; track employee.employeeId) {
+            <tr>
+                <td>{{employee.employeeId}}</td>
+                <td>{{employee.employeeName}}</td>
+                <td>{{employee.employeeAddress}}</td>
+                <td>{{employee.employeeContactNumber}}</td>
+                <td>{{employee.createAt | date:'dd/MM/yyyy'}}</td>
+                <td class="text-end">
+                    <div class="btn-group">
+                        <button class="btn btn-warning" [routerLink]="[employee.employeeId, 'edit']">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteEmployee(employee)">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
